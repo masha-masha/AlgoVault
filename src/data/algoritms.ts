@@ -70,6 +70,70 @@ export const algorithms: Algorithm[] = [
 }`
   },
   {
+    id: "bubble-sort",
+    title: "Пузырьковая сортировка",
+    description: "Простой алгоритм, многократно проходящий по списку, сравнивающий соседние элементы и меняющий их местами, если они стоят в неправильном порядке.",
+    complexity: { time: "O(n²) (среднее и худшее), O(n) (лучшее)", space: "O(1)" },
+    jsCode: `function bubbleSort(arr) {
+  let n = arr.length;
+  let swapped;
+  do {
+    swapped = false;
+    for (let i = 0; i < n - 1; i++) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
+      }
+    }
+    n--;
+  } while (swapped);
+  return arr;
+}`,
+    tsCode: `function bubbleSort(arr: number[]): number[] {
+  let n = arr.length;
+  let swapped: boolean;
+  do {
+    swapped = false;
+    for (let i = 0; i < n - 1; i++) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
+      }
+    }
+    n--;
+  } while (swapped);
+  return arr;
+}`
+  },
+  {
+    id: "two-sum",
+    title: "Two Sum",
+    description: "Найти два числа в массиве, сумма которых равна заданному значению.",
+    complexity: { time: "O(n) (с хэш-таблицей)", space: "O(n)" },
+    jsCode: `function twoSum(nums, target) {
+  const numMap = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (numMap.has(complement)) {
+      return [numMap.get(complement), i];
+    }
+    numMap.set(nums[i], i);
+  }
+  return []; // Если пара не найдена
+}`,
+    tsCode: `function twoSum(nums: number[], target: number): number[] {
+  const numMap = new Map<number, number>();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (numMap.has(complement)) {
+      return [numMap.get(complement)!, i];
+    }
+    numMap.set(nums[i], i);
+  }
+  return []; // Если пара не найдена
+}`
+  },
+  {
     id: "insertion-sort",
     title: "Сортировка вставками",
     description: "Алгоритм, при котором массив постепенно перестраивается путем вставки каждого следующего элемента в правильную позицию в уже отсортированной части.",
