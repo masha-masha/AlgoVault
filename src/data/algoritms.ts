@@ -163,6 +163,117 @@ export const algorithms: Algorithm[] = [
   }
   return arr;
 }`
+  },
+  {
+    id: "selection-sort",
+    title: "Сортировка выбором",
+    description: "Алгоритм, который проходит по массиву, находит минимальный элемент и меняет его местами с первым элементом неотсортированной части.",
+    complexity: { time: "O(n²)", space: "O(1)" },
+    jsCode: `function selectionSort(arr) {
+  const n = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    let minIdx = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+      }
+    }
+    if (minIdx !== i) {
+      [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+    }
+  }
+  return arr;
+}`,
+    tsCode: `function selectionSort(arr: number[]): number[] {
+  const n: number = arr.length;
+  for (let i = 0; i < n - 1; i++) {
+    let minIdx: number = i;
+    for (let j = i + 1; j < n; j++) {
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+      }
+    }
+    if (minIdx !== i) {
+      [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+    }
+  }
+  return arr;
+}`
+  },
+  {
+    id: "merge-sort",
+    title: "Сортировка слиянием",
+    description: "Классический алгоритм 'разделяй и властвуй'. Массив рекурсивно делится пополам, а затем части сливаются в правильном порядке.",
+    complexity: { time: "O(n log n)", space: "O(n)" },
+    jsCode: `function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  let result = [];
+  let l = 0, r = 0;
+  while (l < left.length && r < right.length) {
+    if (left[l] < right[r]) result.push(left[l++]);
+    else result.push(right[r++]);
+  }
+  return [...result, ...left.slice(l), ...right.slice(r)];
+}`,
+    tsCode: `function mergeSort(arr: number[]): number[] {
+  if (arr.length <= 1) return arr;
+
+  const mid: number = Math.floor(arr.length / 2);
+  const left: number[] = mergeSort(arr.slice(0, mid));
+  const right: number[] = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left: number[], right: number[]): number[] {
+  let result: number[] = [];
+  let l = 0, r = 0;
+  while (l < left.length && r < right.length) {
+    if (left[l] < right[r]) result.push(left[l++]);
+    else result.push(right[r++]);
+  }
+  return [...result, ...left.slice(l), ...right.slice(r)];
+}`
+  },
+  {
+    id: "factorial",
+    title: "Факториал(рекурсия)",
+    description: "Вычисление произведения всех натуральных чисел от 1 до n. Приведены два метода: классическая рекурсия, которая накапливает стек вызовов, и хвостовая рекурсия, использующая аккумулятор.",
+    complexity: { time: "O(n)", space: "O(n) / O(1)" },
+    jsCode: `// 1. КЛАССИЧЕСКАЯ РЕКУРСИЯ
+// Стек вызовов растет пропорционально n
+const factorial = (n) => {
+  if (n === 0) return 1;
+  return n * factorial(n - 1);
+};
+
+// 2. ХВОСТОВАЯ РЕКУРСИЯ
+// Результат передается в аккумулятор (acc), 
+// что позволяет оптимизировать использование памяти
+const tailFactorial = (n, acc = 1) => {
+  if (n === 0) return acc;
+  return tailFactorial(n - 1, n * acc);
+};`,
+    tsCode: `// 1. КЛАССИЧЕСКАЯ РЕКУРСИЯ
+const factorial = (n: number): number => {
+  if (n === 0) return 1;
+  return n * factorial(n - 1);
+};
+
+// 2. ХВОСТОВАЯ РЕКУРСИЯ
+const tailFactorial = (n: number, acc: number = 1): number => {
+  if (n === 0) return acc;
+  return tailFactorial(n - 1, n * acc);
+};`
   }
 
 ];
