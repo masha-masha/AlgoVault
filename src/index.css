@@ -31,6 +31,10 @@ img {
   border-right: 1px solid #ddd;
 }
 
+.sidebar h2 {
+  margin-bottom: 10px;
+}
+
 .sidebar nav {
   display: flex;
   flex-direction: column;

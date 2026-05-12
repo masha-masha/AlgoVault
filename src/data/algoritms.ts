@@ -274,6 +274,83 @@ const tailFactorial = (n: number, acc: number = 1): number => {
   if (n === 0) return acc;
   return tailFactorial(n - 1, n * acc);
 };`
+  },
+  {
+    id: "heap-sort",
+    title: "Пирамидальная сортировка (Heap Sort)",
+    description: "Эффективный алгоритм сортировки, основанный на использовании структуры данных 'Бинарная куча'. Он превращает массив в дерево, где каждый родитель больше своих детей, и постепенно извлекает самый большой элемент из вершины в конец массива.",
+    complexity: {
+      time: "O(n log n)",
+      space: "O(1)"
+    },
+    jsCode: `function heapify(arr, n, i) {
+  let largest = i; 
+  let left = 2 * i + 1; 
+  let right = 2 * i + 2; 
+
+  // Если левый ребенок больше корня
+  if (left < n && arr[left] > arr[largest]) {
+    largest = left;
   }
 
+  // Если правый ребенок больше, чем самый большой сейчас
+  if (right < n && arr[right] > arr[largest]) {
+    largest = right;
+  }
+
+  // Если самый большой — не корень, делаем обмен и идем глубже
+  if (largest !== i) {
+    [arr[i], arr[largest]] = [arr[largest], arr[i]];
+    heapify(arr, n, largest);
+  }
+}
+
+function heapSort(arr) {
+  let n = arr.length;
+
+  // 1. Построение кучи (начинаем с последнего родителя)
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+
+  // 2. Сортировка: вынимаем корень и чиним кучу
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]]; // Переносим максимум в конец
+    heapify(arr, i, 0); // Чиним оставшуюся часть
+  }
+  return arr;
+}`,
+    tsCode: `function heapify(arr: number[], n: number, i: number): void {
+  let largest: number = i; 
+  const left: number = 2 * i + 1; 
+  const right: number = 2 * i + 2; 
+
+  if (left < n && arr[left] > arr[largest]) {
+    largest = left;
+  }
+
+  if (right < n && arr[right] > arr[largest]) {
+    largest = right;
+  }
+
+  if (largest !== i) {
+    [arr[i], arr[largest]] = [arr[largest], arr[i]];
+    heapify(arr, n, largest);
+  }
+}
+
+function heapSort(arr: number[]): number[] {
+  const n: number = arr.length;
+
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapify(arr, i, 0);
+  }
+  return arr;
+}`
+  }
 ];
