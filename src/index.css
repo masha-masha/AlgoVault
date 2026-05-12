@@ -1,71 +1,235 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 img {
-    max-width: 100%;
-    display: block;
-    object-fit: cover;
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
 }
+
+
 
 .app-container {
   display: flex;
-  height: 100vh;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .sidebar {
-  width: 250px;
+  width: 100%;
   background: #f4f4f4;
-  padding: 20px;
-  border-right: 1px solid #ddd;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .sidebar h2 {
   margin-bottom: 10px;
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .sidebar nav {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sidebar nav a {
+  padding: 8px 12px;
+  background-color: #e9e9e9;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #555;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: center;
+}
+
+.sidebar nav a:hover {
+  background-color: #ddd;
+  color: #333;
 }
 
 .content {
   flex: 1;
-  padding: 40px;
+  padding: 20px;
   overflow-y: auto;
+}
+
+.content h1 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.content p {
+  margin-bottom: 10px;
 }
 
 .tabs {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .tabs button {
-  padding: 10px 20px;
+  padding: 10px 15px;
   cursor: pointer;
-  border: none;
-  background: #eee;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #555;
+  font-size: 0.95em;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  width: 100%;
+}
+
+.tabs button:hover:not(.active) {
+  background: #e0e0e0;
+  border-color: #bbb;
 }
 
 .tabs button.active {
   background: #2f3542;
   color: white;
+  border-color: #2f3542;
 }
 
 .complexity-info {
   margin: 20px 0;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
   font-weight: bold;
+  background-color: #fafafa;
+  padding: 15px;
+  border-left: 3px solid #2f3542;
+  border-radius: 4px;
+}
+
+.code-block {
+    background-color: #2f3542; 
+    color: #f8f8f2; 
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: hidden; 
+    white-space: pre-wrap; 
+    overflow-wrap: break-word; 
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em; 
+    margin-top: 15px;
+}
+
+
+
+
+@media (min-width: 768px) {
+  .app-container {
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 250px;
+    border-right: 1px solid #ddd;
+    border-bottom: none;
+    padding: 20px;
+    box-shadow: none;
+    flex-shrink: 0;
+  }
+
+  .sidebar h2 {
+    text-align: left;
+    font-size: 1.5em;
+  }
+
+  .sidebar nav {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+
+  .sidebar nav a {
+    padding: 5px 0;
+    background-color: transparent;
+    border-radius: 0;
+    font-size: 1em;
+    color: #333;
+    text-align: left;
+  }
+
+  .sidebar nav a:hover {
+    color: #2f3542;
+    background-color: transparent;
+  }
+
+  .content {
+    padding: 40px;
+  }
+
+  .content h1 {
+    font-size: 2.2em;
+  }
+
+  .tabs {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .tabs button {
+    width: auto;
+    margin-right: -1px;
+    border-radius: 4px 4px 0 0;
+  }
+
+  .tabs button:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 0;
+  }
+
+  .tabs button:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 0;
+  }
+
+
+  .complexity-info {
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+  }
+
+ .code-block {
+      font-size: 1em; 
+      padding: 15px; 
+    }
+}
+
+
+@media (min-width: 1200px) {
+  .content {
+    padding: 50px 80px;
+  }
 }
