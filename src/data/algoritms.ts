@@ -352,5 +352,54 @@ function heapSort(arr: number[]): number[] {
   }
   return arr;
 }`
+  },
+  {
+    id: "counting-sort",
+    title: "Сортировка подсчетом (Counting Sort)",
+    description: "Линейный алгоритм сортировки для целых чисел в заданном диапазоне. Он подсчитывает количество вхождений каждого элемента, а затем использует эти подсчеты для определения позиций элементов в отсортированном массиве. Является стабильной сортировкой. Лучше всего его использовать, если в массиве мало уникальных элементов",
+    complexity: {
+      time: "O(n + k)", // n - количество элементов, k - диапазон значений (max - min)
+      space: "O(n + k)" // для массивов count и output
+    },
+    jsCode: `function countingSort(arr) {
+  const max = Math.max(...arr);
+  const count = new Array(max + 1).fill(0);
+  const output = new Array(arr.length);
+
+  for (let num of arr) {
+    count[num]++;
+  }
+
+  for (let i = 1; i <= max; i++) {
+    count[i] += count[i - 1];
+  }
+     
+  for (let i = arr.length - 1; i >= 0; i--) {
+    output[count[arr[i]] - 1] = arr[i];
+    count[arr[i]]--;
+  }
+
+  return output;
+}`,
+    tsCode: `function countingSort(arr: number[]): number[] {
+  const max: number = Math.max(...arr);
+  const count: number[] = new Array(max + 1).fill(0);
+  const output: number[] = new Array(arr.length);
+
+  for (let num of arr) {
+    count[num]++;
+  }
+
+  for (let i = 1; i <= max; i++) {
+    count[i] += count[i - 1];
+  }
+     
+  for (let i = arr.length - 1; i >= 0; i--) {
+    output[count[arr[i]] - 1] = arr[i];
+    count[arr[i]]--;
+  }
+
+  return output;
+}`
   }
 ];
