@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { algorithms } from './data/algoritms';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AlgoDetail from './components/AlgoDetail';
 import AlgorithmMenu from './components/AlgoMenu';
 
