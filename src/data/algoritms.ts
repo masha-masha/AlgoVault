@@ -401,5 +401,41 @@ function heapSort(arr: number[]): number[] {
 
   return output;
 }`
+  },
+  {
+    id: "sliding-window",
+    title: "Скользящее окно (Sliding Window)",
+    description: "Техника оптимизации, превращающая вложенные циклы в один проход. Вместо полного пересчета данных в окне, мы 'сдвигаем' его, добавляя новый элемент справа и вычитая ушедший элемент слева.",
+    complexity: { time: "O(n)", space: "O(1)" },
+    jsCode: `function maxSumSubarray(arr, k) {
+  if (arr.length < k) return 0;
+  
+  let maxSum = 0;
+  let windowSum = 0;
+
+  for (let i = 0; i < k; i++) windowSum += arr[i];
+  maxSum = windowSum;
+
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+  return maxSum;
+}`,
+    tsCode: `function maxSumSubarray(arr: number[], k: number): number {
+  if (arr.length < k) return 0;
+  
+  let maxSum: number = 0;
+  let windowSum: number = 0;
+
+  for (let i = 0; i < k; i++) windowSum += arr[i];
+  maxSum = windowSum;
+
+  for (let i = k; i < arr.length; i++) {
+    windowSum += arr[i] - arr[i - k];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+  return maxSum;
+}`
   }
 ];
