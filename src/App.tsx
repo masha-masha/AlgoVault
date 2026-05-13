@@ -1,20 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { algorithms } from './data/algoritms';
 import AlgoDetail from './components/AlgoDetail';
+import AlgorithmMenu from './components/AlgoMenu';
 
 
 function App() {
   return (
     <Router>
       <div className="app-container">
-        <aside className="sidebar">
-          <h2>Алгоритмы</h2>
-          <nav>
-            {algorithms.map(algo => (
-              <Link key={algo.id} to={`/algo/${algo.id}`}>{algo.title}</Link>
-            ))}
-          </nav>
-        </aside>
+        <AlgorithmMenu/>
         
         <main className="content">
           <Routes>
