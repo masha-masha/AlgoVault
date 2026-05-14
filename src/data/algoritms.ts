@@ -478,5 +478,56 @@ function heapSort(arr: number[]): number[] {
   }
   return primeNumbers;
 }`
+  },
+  {
+    id: "bfs",
+    title: "Поиск в ширину (BFS)",
+    description: "Алгоритм обхода графа или дерева 'уровнями'. Сначала посещаются все ближайшие соседи, затем соседи соседей и так далее. Использует очередь (FIFO).",
+    complexity: { time: "O(V + E)", space: "O(V)" }, // V - узлы, E - ребра
+    jsCode: `const bfs = (graph, startNode) => {
+  const visited = new Set();
+  const queue = [startNode];
+  const result = [];
+  
+  visited.add(startNode);
+  
+  while (queue.length > 0) {
+    const currentNode = queue.shift();
+    result.push(currentNode);
+    
+    for (const neighbor of graph[currentNode]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor);
+      }
+    }
   }
+  return result;
+};`,
+    tsCode: `interface Graph {
+  [key: string]: string[];
+}
+
+const bfs = (graph: Graph, startNode: string): string[] => {
+  const visited = new Set<string>();
+  const queue: string[] = [startNode];
+  const result: string[] = [];
+  
+  visited.add(startNode);
+  
+  while (queue.length > 0) {
+    const currentNode = queue.shift()!;
+    result.push(currentNode);
+    
+    for (const neighbor of graph[currentNode]) {
+      if (!visited.has(neighbor)) {
+        visited.add(neighbor);
+        queue.push(neighbor);
+      }
+    }
+  }
+  return result;
+};`
+  }
+
 ];
