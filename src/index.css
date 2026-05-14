@@ -168,7 +168,7 @@ img {
 @media (min-width: 768px) {
   .app-container {
     flex-direction: row;
-    height: 100vh;
+    height: auto;
   }
 
   .sidebar {
