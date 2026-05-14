@@ -437,5 +437,46 @@ function heapSort(arr: number[]): number[] {
   }
   return maxSum;
 }`
+  },
+  {
+    id: "sieve-of-eratosthenes",
+    title: "Решето Эратосфена",
+    description: "Эффективный алгоритм для нахождения всех простых чисел до заданного предела (n). Он работает, последовательно вычеркивая кратные числа.",
+    complexity: { time: "O(n log log n)", space: "O(n)" },
+    jsCode: `const sieve = (n) => {
+  const primes = new Array(n + 1).fill(true);
+  primes[0] = primes[1] = false;
+
+  for (let i = 2; i * i <= n; i++) {
+    if (primes[i]) {
+      for (let j = i * i; j <= n; j += i) {
+        primes[j] = false;
+      }
+    }
+  }
+  
+  return primes.reduce((acc, isPrime, i) => {
+    if(isPrime) acc.push(i);
+    return acc;
+  }, []);
+};`,
+    tsCode: `const sieve = (n: number): number[] => {
+  const primes: boolean[] = new Array(n + 1).fill(true);
+  primes[0] = primes[1] = false;
+
+  for (let i = 2; i * i <= n; i++) {
+    if (primes[i]) {
+      for (let j = i * i; j <= n; j += i) {
+        primes[j] = false;
+      }
+    }
+  }
+  
+  const primeNumbers: number[] = [];
+  for(let i = 2; i <= n; i++){
+    if(primes[i]) primeNumbers.push(i);
+  }
+  return primeNumbers;
+}`
   }
 ];
