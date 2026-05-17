@@ -528,6 +528,53 @@ const bfs = (graph: Graph, startNode: string): string[] => {
   }
   return result;
 };`
-  }
+  },
+  {
+    id: "knapsack-problem",
+    title: "Задача о рюкзаке (0/1 Knapsack)",
+    description: "Алгоритм нахождения набора предметов с максимальной ценностью, суммарный вес которых не превышает заданную емкость. Использует таблицу для хранения решений подзадач.",
+    complexity: { time: "O(n * W)", space: "O(n * W)" },
+    jsCode: `const knapsack = (capacity, weights, values) => {
+  const n = weights.length;
+  // Создаем матрицу (таблицу) n+1 на capacity+1
+  const dp = Array.from({ length: n + 1 }, () => Array(capacity + 1).fill(0));
 
+  for (let i = 1; i <= n; i++) {
+    const currentWeight = weights[i - 1];
+    const currentValue = values[i - 1];
+
+    for (let w = 0; w <= capacity; w++) {
+      if (currentWeight <= w) {
+        // Выбираем максимум: не брать предмет или взять его
+        dp[i][w] = Math.max(
+          dp[i - 1][w],
+          currentValue + dp[i - 1][w - currentWeight]
+        );
+      } else {
+        // Предмет не влезает, берем результат из предыдущей строки
+        dp[i][w] = dp[i - 1][w];
+      }
+    }
+  }
+  return dp[n][capacity];
+};`,
+    tsCode: `const knapsack = (capacity: number, weights: number[], values: number[]): number => {
+  const n: number = weights.length;
+  const dp: number[][] = Array.from({ length: n + 1 }, () => Array(capacity + 1).fill(0));
+
+  for (let i = 1; i <= n; i++) {
+    const weight = weights[i - 1];
+    const value = values[i - 1];
+
+    for (let w = 0; w <= capacity; w++) {
+      if (weight <= w) {
+        dp[i][w] = Math.max(dp[i - 1][w], value + dp[i - 1][w - weight]);
+      } else {
+        dp[i][w] = dp[i - 1][w];
+      }
+    }
+  }
+  return dp[n][capacity];
+};`
+  }
 ];
