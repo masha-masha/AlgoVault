@@ -578,11 +578,11 @@ const bfs = (graph: Graph, startNode: string): string[] => {
 };`
   },
   {
-  id: "balanced-parentheses",
-  title: "Валидация скобок",
-  description: "Алгоритм проверяет правильность расстановки и вложенности скобок разных типов. Использует структуру данных 'Стек' (LIFO).",
-  complexity: { time: "O(n)", space: "O(n)" },
-  jsCode: `const isValidParentheses = (str) => {
+    id: "balanced-parentheses",
+    title: "Валидация скобок",
+    description: "Алгоритм проверяет правильность расстановки и вложенности скобок разных типов. Использует структуру данных 'Стек' (LIFO).",
+    complexity: { time: "O(n)", space: "O(n)" },
+    jsCode: `const isValidParentheses = (str) => {
   const stack = [];
   const brackets = {
     ')': '(',
@@ -608,7 +608,7 @@ const bfs = (graph: Graph, startNode: string): string[] => {
   // Если стек пустой — все скобки нашли свою пару
   return stack.length === 0;
 };`,
-  tsCode: `const isValidParentheses = (str: string): boolean => {
+    tsCode: `const isValidParentheses = (str: string): boolean => {
   const stack: string[] = [];
   const brackets: Record<string, string> = {
     ')': '(',
@@ -627,5 +627,42 @@ const bfs = (graph: Graph, startNode: string): string[] => {
 
   return stack.length === 0;
 };`
-}
+  },
+  {
+    id: "shell-sort",
+    title: "Сортировка Шелла",
+    description: "Улучшенный вариант сортировки вставками. Сравнивает элементы, стоящие на определенном расстоянии (gap), которое постепенно уменьшается. Это позволяет 'легким' элементам быстрее перемещаться в начало массива.",
+    complexity: { time: "O(n log² n)", space: "O(1)" },
+    jsCode: `const shellSort = (arr) => {
+  let n = arr.length;
+  // Начинаем с большого интервала и уменьшаем его
+  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    for (let i = gap; i < n; i++) {
+      let temp = arr[i];
+      let j;
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      arr[j] = temp;
+    }
+  }
+  return arr;
+};`,
+    tsCode: `const shellSort = (arr: number[]): number[] => {
+  let n: number = arr.length;
+  for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    for (let i = gap; i < n; i++) {
+      let temp: number = arr[i];
+      let j: number;
+      for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
+        arr[j] = arr[j - gap];
+      }
+      arr[j] = temp;
+    }
+  }
+  return arr;
+};`
+  }
+
+
 ];
