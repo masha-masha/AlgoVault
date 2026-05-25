@@ -662,7 +662,55 @@ const bfs = (graph: Graph, startNode: string): string[] => {
   }
   return arr;
 };`
+  },
+  {
+    id: "radix-sort",
+    title: "Поразрядная сортировка (Radix Sort)",
+    description: "Алгоритм сортировки без сравнений. Он распределяет числа по корзинам (от 0 до 9) на основе их разрядов: сначала по единицам, затем по десяткам и так далее. Идеально подходит для целых чисел.",
+    complexity: { time: "O(nk)", space: "O(n + k)" },
+    jsCode: `const getDigit = (num, i) => Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
+const digitCount = (num) => num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
+const mostDigits = (nums) => {
+  let maxDigits = 0;
+  for (let num of nums) maxDigits = Math.max(maxDigits, digitCount(num));
+  return maxDigits;
+};
+
+const radixSort = (nums) => {
+  let maxDigitCount = mostDigits(nums);
+  for (let k = 0; k < maxDigitCount; k++) {
+    let digitBuckets = Array.from({ length: 10 }, () => []);
+    for (let i = 0; i < nums.length; i++) {
+      let digit = getDigit(nums[i], k);
+      digitBuckets[digit].push(nums[i]);
+    }
+    nums = [].concat(...digitBuckets);
   }
+  return nums;
+};`,
+    tsCode: `const getDigit = (num: number, i: number): number => 
+  Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
 
+const digitCount = (num: number): number => 
+  num === 0 ? 1 : Math.floor(Math.log10(Math.abs(num))) + 1;
 
+const mostDigits = (nums: number[]): number => {
+  let maxDigits = 0;
+  for (let num of nums) maxDigits = Math.max(maxDigits, digitCount(num));
+  return maxDigits;
+};
+
+const radixSort = (nums: number[]): number[] => {
+  let maxDigitCount = mostDigits(nums);
+  for (let k = 0; k < maxDigitCount; k++) {
+    let digitBuckets: number[][] = Array.from({ length: 10 }, () => []);
+    for (let i = 0; i < nums.length; i++) {
+      let digit = getDigit(nums[i], k);
+      digitBuckets[digit].push(nums[i]);
+    }
+    nums = ([] as number[]).concat(...digitBuckets);
+  }
+  return nums;
+};`
+  }
 ];
