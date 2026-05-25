@@ -576,5 +576,56 @@ const bfs = (graph: Graph, startNode: string): string[] => {
   }
   return dp[n][capacity];
 };`
+  },
+  {
+  id: "balanced-parentheses",
+  title: "Валидация скобок",
+  description: "Алгоритм проверяет правильность расстановки и вложенности скобок разных типов. Использует структуру данных 'Стек' (LIFO).",
+  complexity: { time: "O(n)", space: "O(n)" },
+  jsCode: `const isValidParentheses = (str) => {
+  const stack = [];
+  const brackets = {
+    ')': '(',
+    ']': '[',
+    '}': '{'
+  };
+
+  for (const char of str) {
+    // Если это закрывающая скобка
+    if (brackets[char]) {
+      // Достаем верхний элемент из стека (или undefined, если стек пуст)
+      const topElement = stack.pop();
+      // Если пара не совпала, значит порядок нарушен
+      if (topElement !== brackets[char]) {
+        return false;
+      }
+    } else if (Object.values(brackets).includes(char)) {
+      // Если это открывающая скобка — кладем в стек
+      stack.push(char);
+    }
   }
+
+  // Если стек пустой — все скобки нашли свою пару
+  return stack.length === 0;
+};`,
+  tsCode: `const isValidParentheses = (str: string): boolean => {
+  const stack: string[] = [];
+  const brackets: Record<string, string> = {
+    ')': '(',
+    ']': '[',
+    '}': '{'
+  };
+
+  for (const char of str) {
+    if (brackets[char]) {
+      const topElement = stack.pop();
+      if (topElement !== brackets[char]) return false;
+    } else if (Object.values(brackets).includes(char)) {
+      stack.push(char);
+    }
+  }
+
+  return stack.length === 0;
+};`
+}
 ];
