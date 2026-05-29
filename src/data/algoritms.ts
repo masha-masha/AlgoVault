@@ -798,6 +798,118 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`
-}
+},
+{
+  id: "hill-cipher-2x2",
+  title: "Шифр Хилла (2x2)",
+  description: "Полиалфавитный блочный шифр, основанный на линейной алгебре. Текст разбивается на пары букв (векторы), которые затем умножаются на ключевую матрицу 2x2 по модулю 26. Требует, чтобы ключевая матрица была обратимой.",
+  complexity: { time: "O(n)", space: "O(n)" },
+  jsCode: `const hillCipher = (text, keyMatrix, encrypt = true) => {
+  const mod = (n, m) => ((n % m) + m) % m;
+  const charToNum = (char) => char.toUpperCase().charCodeAt(0) - 65;
+  const numToChar = (num) => String.fromCharCode(num + 65);
 
+  const matrixMultiply = (matrix, vector, modulus) => {
+    const result = [0, 0];
+    for (let i = 0; i < 2; i++) {
+      let sum = 0;
+      for (let j = 0; j < 2; j++) {
+        sum += matrix[i][j] * vector[j];
+      }
+      result[i] = mod(sum, modulus);
+    }
+    return result;
+  };
+
+  const determinant2x2 = (matrix) => (matrix[0][0] * matrix[1][1]) - (matrix[0][1] * matrix[1][0]);
+
+  const modularInverse = (a, m) => {
+    a = mod(a, m);
+    for (let x = 1; x < m; x++) {
+      if (mod(a * x, m) === 1) return x;
+    }
+    return null;
+  };
+
+  const inverseMatrix2x2 = (matrix, modulus = 26) => {
+    const det = determinant2x2(matrix);
+    const detInverse = modularInverse(det, modulus);
+    if (detInverse === null) return null;
+
+    const adjugate = [
+      [matrix[1][1], -matrix[0][1]],
+      [-matrix[1][0], matrix[0][0]]
+    ];
+
+    return [
+      [mod(detInverse * adjugate[0][0], modulus), mod(detInverse * adjugate[0][1], modulus)],
+      [mod(detInverse * adjugate[1][0], modulus), mod(detInverse * adjugate[1][1], modulus)]
+    ];
+  };
+
+  if (keyMatrix.length !== 2 || keyMatrix[0].length !== 2) {
+    throw new Error("Матрица должна быть размером 2x2");
+  }
+
+  const activeMatrix = encrypt ? keyMatrix : inverseMatrix2x2(keyMatrix);
+  if (!activeMatrix) {
+    return "Ошибка: Ключевая матрица не обратима по модулю 26.";
+  }
+
+  let cleaned = text.toUpperCase().replace(/[^A-Z]/g, '');
+  if (cleaned.length % 2 !== 0) cleaned += 'X';
+
+  let result = '';
+  for (let i = 0; i < cleaned.length; i += 2) {
+    const block = [charToNum(cleaned[i]), charToNum(cleaned[i + 1])];
+    const processedBlock = matrixMultiply(activeMatrix, block, 26);
+    result += numToChar(processedBlock[0]) + numToChar(processedBlock[1]);
+  }
+
+  return result;
+};`,
+  tsCode: `const hillCipher = (text: string, keyMatrix: number[][], encrypt: boolean = true): string => {
+  const MOD = 26;
+
+  const mod = (n: number, m: number): number => ((n % m) + m) % m;
+  const charToNum = (char: string): number => char.toUpperCase().charCodeAt(0) - 65;
+  const numToChar = (num: number): string => String.fromCharCode(num + 65);
+
+  const matrixMultiply = (matrix: number[][], vector: number[]): number[] => [
+    mod(matrix[0][0] * vector[0] + matrix[0][1] * vector[1], MOD),
+    mod(matrix[1][0] * vector[0] + matrix[1][1] * vector[1], MOD)
+  ];
+
+  const getInverseMatrix = (matrix: number[][]): number[][] | null => {
+    const det = (matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]);
+    const detMod = mod(det, MOD);
+    
+    // Поиск обратного элемента по модулю 26
+    let detInv = -1;
+    for (let i = 1; i < MOD; i++) {
+      if ((detMod * i) % MOD === 1) detInv = i;
+    }
+    if (detInv === -1) return null;
+
+    return [
+      [mod(matrix[1][1] * detInv, MOD), mod(-matrix[0][1] * detInv, MOD)],
+      [mod(-matrix[1][0] * detInv, MOD), mod(matrix[0][0] * detInv, MOD)]
+    ];
+  };
+
+  const activeMatrix = encrypt ? keyMatrix : getInverseMatrix(keyMatrix);
+  if (!activeMatrix) throw new Error("Матрица не обратима по модулю 26");
+
+  const cleaned = text.toUpperCase().replace(/[^A-Z]/g, '');
+  const pairs = (cleaned.length % 2 !== 0 ? cleaned + 'X' : cleaned).match(/.{1,2}/g) || [];
+
+  return pairs
+    .map((pair) => {
+      const vector = [charToNum(pair[0]), charToNum(pair[1])];
+      const result = matrixMultiply(activeMatrix, vector);
+      return numToChar(result[0]) + numToChar(result[1]);
+    })
+    .join('');
+};`
+}
 ];
