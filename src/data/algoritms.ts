@@ -712,5 +712,49 @@ const radixSort = (nums: number[]): number[] => {
   }
   return nums;
 };`
+  },
+  {
+    id: "merge-intervals",
+    title: "Слияние интервалов",
+    description: "Алгоритм объединяет все перекрывающиеся интервалы в один непрерывный отрезок. Часто применяется в планировщиках задач и календарях для поиска свободного или занятого времени.",
+    complexity: { time: "O(n log n)", space: "O(n)" },
+    jsCode: `const mergeIntervals = (intervals) => {
+  if (intervals.length <= 1) return intervals;
+
+  intervals.sort((a, b) => a[0] - b[0]);
+  const merged = [intervals[0]];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const current = intervals[i];
+    const last = merged[merged.length - 1];
+
+    if (current[0] <= last[1]) {
+      last[1] = Math.max(last[1], current[1]);
+    } else {
+      merged.push(current);
+    }
   }
+  return merged;
+};`,
+    tsCode: `const mergeIntervals = (intervals: number[][]): number[][] => {
+  if (intervals.length <= 1) return intervals;
+
+  intervals.sort((a, b) => a[0] - b[0]);
+  const merged: number[][] = [intervals[0]];
+
+  for (let i = 1; i < intervals.length; i++) {
+    const current = intervals[i];
+    const last = merged[merged.length - 1];
+
+    if (current[0] <= last[1]) {
+      last[1] = Math.max(last[1], current[1]);
+    } else {
+      merged.push(current);
+    }
+  }
+  return merged;
+};`
+  }
+
+
 ];
