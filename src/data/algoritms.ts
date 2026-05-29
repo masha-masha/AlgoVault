@@ -754,7 +754,50 @@ const radixSort = (nums: number[]): number[] => {
   }
   return merged;
 };`
+  },
+  {
+  id: "caesar-cipher",
+  title: "Шифр Цезаря",
+  description: "Один из самых простых и известных методов шифрования. Относится к шифрам подстановки: каждый символ в тексте заменяется другим, смещенным на фиксированное количество позиций по алфавиту.",
+  complexity: { time: "O(n)", space: "O(n)" },
+  jsCode: `const caesarCipher = (text, key, encrypt = true) => {
+  let result = '';
+  const shift = ((key % 26) + 26) % 26;
+  const activeShift = encrypt ? shift : 26 - shift;
+
+  for (let i = 0; i < text.length; i++) {
+    const charCode = text.charCodeAt(i);
+
+    if (charCode >= 65 && charCode <= 90) { // Заглавные A-Z
+      result += String.fromCharCode(((charCode - 65 + activeShift) % 26) + 65);
+    } else if (charCode >= 97 && charCode <= 122) { // Строчные a-z
+      result += String.fromCharCode(((charCode - 97 + activeShift) % 26) + 97);
+    } else {
+      result += text[i]; // Оставляем знаки препинания и пробелы без изменений
+    }
   }
 
+  return result;
+};`,
+  tsCode: `const caesarCipher = (text: string, key: number, encrypt: boolean = true): string => {
+  let result: string = '';
+  const shift: number = ((key % 26) + 26) % 26;
+  const activeShift: number = encrypt ? shift : 26 - shift;
+
+  for (let i = 0; i < text.length; i++) {
+    const charCode: number = text.charCodeAt(i);
+
+    if (charCode >= 65 && charCode <= 90) {
+      result += String.fromCharCode(((charCode - 65 + activeShift) % 26) + 65);
+    } else if (charCode >= 97 && charCode <= 122) {
+      result += String.fromCharCode(((charCode - 97 + activeShift) % 26) + 97);
+    } else {
+      result += text[i];
+    }
+  }
+
+  return result;
+};`
+}
 
 ];
