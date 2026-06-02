@@ -756,11 +756,11 @@ const radixSort = (nums: number[]): number[] => {
 };`
   },
   {
-  id: "caesar-cipher",
-  title: "Шифр Цезаря",
-  description: "Один из самых простых и известных методов шифрования. Относится к шифрам подстановки: каждый символ в тексте заменяется другим, смещенным на фиксированное количество позиций по алфавиту.",
-  complexity: { time: "O(n)", space: "O(n)" },
-  jsCode: `const caesarCipher = (text, key, encrypt = true) => {
+    id: "caesar-cipher",
+    title: "Шифр Цезаря",
+    description: "Один из самых простых и известных методов шифрования. Относится к шифрам подстановки: каждый символ в тексте заменяется другим, смещенным на фиксированное количество позиций по алфавиту.",
+    complexity: { time: "O(n)", space: "O(n)" },
+    jsCode: `const caesarCipher = (text, key, encrypt = true) => {
   let result = '';
   const shift = ((key % 26) + 26) % 26;
   const activeShift = encrypt ? shift : 26 - shift;
@@ -779,7 +779,7 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`,
-  tsCode: `const caesarCipher = (text: string, key: number, encrypt: boolean = true): string => {
+    tsCode: `const caesarCipher = (text: string, key: number, encrypt: boolean = true): string => {
   let result: string = '';
   const shift: number = ((key % 26) + 26) % 26;
   const activeShift: number = encrypt ? shift : 26 - shift;
@@ -798,13 +798,13 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`
-},
-{
-  id: "hill-cipher-2x2",
-  title: "Шифр Хилла (2x2)",
-  description: "Полиалфавитный блочный шифр, основанный на линейной алгебре. Текст разбивается на пары букв (векторы), которые затем умножаются на ключевую матрицу 2x2 по модулю 26. Требует, чтобы ключевая матрица была обратимой.",
-  complexity: { time: "O(n)", space: "O(n)" },
-  jsCode: `const hillCipher = (text, keyMatrix, encrypt = true) => {
+  },
+  {
+    id: "hill-cipher-2x2",
+    title: "Шифр Хилла (2x2)",
+    description: "Полиалфавитный блочный шифр, основанный на линейной алгебре. Текст разбивается на пары букв (векторы), которые затем умножаются на ключевую матрицу 2x2 по модулю 26. Требует, чтобы ключевая матрица была обратимой.",
+    complexity: { time: "O(n)", space: "O(n)" },
+    jsCode: `const hillCipher = (text, keyMatrix, encrypt = true) => {
   const mod = (n, m) => ((n % m) + m) % m;
   const charToNum = (char) => char.toUpperCase().charCodeAt(0) - 65;
   const numToChar = (num) => String.fromCharCode(num + 65);
@@ -868,7 +868,7 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`,
-  tsCode: `const hillCipher = (text: string, keyMatrix: number[][], encrypt: boolean = true): string => {
+    tsCode: `const hillCipher = (text: string, keyMatrix: number[][], encrypt: boolean = true): string => {
   const MOD = 26;
 
   const mod = (n: number, m: number): number => ((n % m) + m) % m;
@@ -911,5 +911,47 @@ const radixSort = (nums: number[]): number[] => {
     })
     .join('');
 };`
-}
+  },
+  {
+    id: "valid-anagram",
+    title: "Проверка на анаграмму",
+    description: "Определяет, являются ли две строки анаграммами друг друга. Использует один объект-счетчик для отслеживания баланса символов, что обеспечивает линейное время выполнения.",
+    complexity: { time: "O(n)", space: "O(k)" },
+    jsCode: `const isAnagram = (s, t) => {
+  if (s.length !== t.length) return false;
+
+  const count = {};
+
+  // Считаем символы первой строки
+  for (let char of s) {
+    count[char] = (count[char] || 0) + 1;
+  }
+
+  // Вычитаем символы второй строки
+  for (let char of t) {
+    if (!count[char]) return false; // Если символа нет или он закончился
+    count[char]--;
+  }
+
+  return true;
+};`,
+    tsCode: `const isAnagram = (s: string, t: string): boolean => {
+  if (s.length !== t.length) return false;
+
+  const count: Record<string, number> = {};
+
+  for (const char of s) {
+    count[char] = (count[char] || 0) + 1;
+  }
+
+  for (const char of t) {
+    if (!count[char]) return false;
+    count[char]--;
+  }
+
+  return true;
+};`
+  }
+
+
 ];
