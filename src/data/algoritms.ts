@@ -951,7 +951,40 @@ const radixSort = (nums: number[]): number[] => {
 
   return true;
 };`
+  },
+  {
+  id: "palindrome-permutation",
+  title: "Перестановка палиндрома",
+  description: "Проверяет, может ли строка стать палиндромом после перестановки букв. Алгоритм эффективно использует Set для отслеживания символов с нечетным количеством вхождений.",
+  complexity: { time: "O(n)", space: "O(k)" },
+  jsCode: `const canPermutePalindrome = (str) => {
+  const charSet = new Set();
+
+  for (const char of str) {
+    if (charSet.has(char)) {
+      charSet.delete(char); // Нашли пару — удаляем
+    } else {
+      charSet.add(char); // Нет пары — добавляем
+    }
   }
+
+  // Для палиндрома должно остаться 0 или 1 нечетный символ
+  return charSet.size <= 1;
+};`,
+  tsCode: `const canPermutePalindrome = (str: string): boolean => {
+  const charSet = new Set<string>();
+
+  for (const char of str) {
+    if (charSet.has(char)) {
+      charSet.delete(char);
+    } else {
+      charSet.add(char);
+    }
+  }
+
+  return charSet.size <= 1;
+};`
+}
 
 
 ];
