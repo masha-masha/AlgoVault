@@ -1014,6 +1014,30 @@ const radixSort = (nums: number[]): number[] => {
   }
   return arr.join('');
 };`
+},
+{
+  id: "single-number-xor",
+  title: "Одинокое число (XOR)",
+  description: "Находит элемент, который встречается в массиве только один раз, в то время как остальные — дважды. Алгоритм использует побитовую операцию XOR, которая 'аннулирует' парные числа, оставляя уникальное значение.",
+  complexity: { time: "O(n)", space: "O(1)" },
+  jsCode: `const singleNumber = (nums) => {
+  let result = 0;
+  
+  for (let num of nums) {
+    result ^= num; // Применяем XOR: одинаковые числа дают 0
+  }
+  
+  return result;
+};`,
+  tsCode: `const singleNumber = (nums: number[]): number => {
+  let result: number = 0;
+  
+  for (const num of nums) {
+    result ^= num;
+  }
+  
+  return result;
+};`
 }
 
 ];
