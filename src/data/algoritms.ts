@@ -984,7 +984,36 @@ const radixSort = (nums: number[]): number[] => {
 
   return charSet.size <= 1;
 };`
-}
+},
+{
+  id: "reverse-string",
+  title: "Разворот строки",
+  description: "Изменяет порядок символов в строке на обратный. Демонстрирует манипуляцию данными 'на месте' (in-place) без использования дополнительного массива.",
+  complexity: { time: "O(n)", space: "O(1)" },
+  jsCode: `const reverseString = (str) => {
+  let arr = str.split('');
+  let left = 0;
+  let right = arr.length - 1;
 
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]]; // Деструктуризация для свапа
+    left++;
+    right--;
+  }
+  return arr.join('');
+};`,
+  tsCode: `const reverseString = (str: string): string => {
+  const arr = str.split('');
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    [arr[left], arr[right]] = [arr[right], arr[left]];
+    left++;
+    right--;
+  }
+  return arr.join('');
+};`
+}
 
 ];
