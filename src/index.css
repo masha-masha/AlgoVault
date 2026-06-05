@@ -31,7 +31,7 @@ img {
 
 .app-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -47,6 +47,12 @@ img {
   margin-bottom: 10px;
   text-align: center;
   font-size: 1.2em;
+}
+
+.toggle-button {
+  border: none;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 .random-algo-button {
