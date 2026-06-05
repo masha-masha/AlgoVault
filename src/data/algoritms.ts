@@ -1063,6 +1063,42 @@ const radixSort = (nums: number[]): number[] => {
     timeoutId = setTimeout(() => func(...args), delay);
   };
 };`
-}
+},
+{
+  id: "throttle",
+  title: "Throttle (Дросселирование)",
+  description: "Ограничивает максимальную частоту вызовов функции. В отличие от Debounce, при постоянном потоке событий функция будет гарантированно выполняться раз в заданный промежуток времени. Идеально для оптимизации скролла (scroll) и отслеживания мыши (mousemove).",
+  complexity: { time: "O(1)", space: "O(1)" },
+  jsCode: `const throttle = (func, limit) => {
+  let isThrottled = false;
 
+  return (...args) => {
+    if (isThrottled) return;
+
+    func(...args);
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+    }, limit);
+  };
+};`,
+  tsCode: `const throttle = <T extends (...args: any[]) => void>(
+  func: T, 
+  limit: number
+): ((...args: Parameters<T>) => void) => {
+  let isThrottled = false;
+
+  return (...args: Parameters<T>) => {
+    if (isThrottled) return;
+
+    func(...args);
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+    }, limit);
+  };
+};`
+}
 ];
