@@ -7,8 +7,7 @@ function App() {
   return (
     <Router>
       <div className="app-container">
-        <AlgorithmMenu/>
-        
+        <AlgorithmMenu/>       
         <main className="content">
           <Routes>
             <Route path="/" element={<h1>Выберите алгоритм для изучения</h1>} />

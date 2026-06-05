@@ -1038,6 +1038,31 @@ const radixSort = (nums: number[]): number[] => {
   
   return result;
 };`
+},
+{
+  id: "debounce",
+  title: "Debounce (Антидребезг)",
+  description: "Ограничивает частоту вызова функции. Выполняет её только после того, как прошло определенное время с последнего вызова. Идеально для полей поиска (API-запросов) и обработки событий ввода.",
+  complexity: { time: "O(1)", space: "O(1)" },
+  jsCode: `const debounce = (func, delay) => {
+  let timeoutId;
+
+  return (...args) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};`,
+  tsCode: `const debounce = <T extends (...args: any[]) => void>(
+  func: T, 
+  delay: number
+): ((...args: Parameters<T>) => void) => {
+  let timeoutId: ReturnType<typeof setTimeout>;
+
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};`
 }
 
 ];
