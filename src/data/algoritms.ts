@@ -1100,5 +1100,41 @@ const radixSort = (nums: number[]): number[] => {
     }, limit);
   };
 };`
+},
+{
+  id: "array-flatten",
+  title: "Распрямление массива (Flatten)",
+  description: "Рекурсивно превращает многомерный массив в одномерный. Этот алгоритм позволяет работать со структурами данных любой вложенности, собирая все элементы в единый плоский список.",
+  complexity: { time: "O(n)", space: "O(n)" },
+  jsCode: `const flatten = (arr) => {
+  let result = [];
+
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      // Если элемент — массив, распрямляем его рекурсивно
+      result = result.concat(flatten(item));
+    } else {
+      // Если нет — просто добавляем в результат
+      result.push(item);
+    }
+  });
+
+  return result;
+};`,
+  tsCode: `const flatten = (arr: any[]): any[] => {
+  let result: any[] = [];
+
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      result = [...result, ...flatten(item)];
+    } else {
+      result.push(item);
+    }
+  });
+
+  return result;
+};`
 }
+
+
 ];
