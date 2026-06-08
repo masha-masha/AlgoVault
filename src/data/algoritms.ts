@@ -953,11 +953,11 @@ const radixSort = (nums: number[]): number[] => {
 };`
   },
   {
-  id: "palindrome-permutation",
-  title: "Перестановка палиндрома",
-  description: "Проверяет, может ли строка стать палиндромом после перестановки букв. Алгоритм эффективно использует Set для отслеживания символов с нечетным количеством вхождений.",
-  complexity: { time: "O(n)", space: "O(k)" },
-  jsCode: `const canPermutePalindrome = (str) => {
+    id: "palindrome-permutation",
+    title: "Перестановка палиндрома",
+    description: "Проверяет, может ли строка стать палиндромом после перестановки букв. Алгоритм эффективно использует Set для отслеживания символов с нечетным количеством вхождений.",
+    complexity: { time: "O(n)", space: "O(k)" },
+    jsCode: `const canPermutePalindrome = (str) => {
   const charSet = new Set();
 
   for (const char of str) {
@@ -971,7 +971,7 @@ const radixSort = (nums: number[]): number[] => {
   // Для палиндрома должно остаться 0 или 1 нечетный символ
   return charSet.size <= 1;
 };`,
-  tsCode: `const canPermutePalindrome = (str: string): boolean => {
+    tsCode: `const canPermutePalindrome = (str: string): boolean => {
   const charSet = new Set<string>();
 
   for (const char of str) {
@@ -984,13 +984,13 @@ const radixSort = (nums: number[]): number[] => {
 
   return charSet.size <= 1;
 };`
-},
-{
-  id: "reverse-string",
-  title: "Разворот строки",
-  description: "Изменяет порядок символов в строке на обратный. Демонстрирует манипуляцию данными 'на месте' (in-place) без использования дополнительного массива.",
-  complexity: { time: "O(n)", space: "O(1)" },
-  jsCode: `const reverseString = (str) => {
+  },
+  {
+    id: "reverse-string",
+    title: "Разворот строки",
+    description: "Изменяет порядок символов в строке на обратный. Демонстрирует манипуляцию данными 'на месте' (in-place) без использования дополнительного массива.",
+    complexity: { time: "O(n)", space: "O(1)" },
+    jsCode: `const reverseString = (str) => {
   let arr = str.split('');
   let left = 0;
   let right = arr.length - 1;
@@ -1002,7 +1002,7 @@ const radixSort = (nums: number[]): number[] => {
   }
   return arr.join('');
 };`,
-  tsCode: `const reverseString = (str: string): string => {
+    tsCode: `const reverseString = (str: string): string => {
   const arr = str.split('');
   let left = 0;
   let right = arr.length - 1;
@@ -1014,13 +1014,13 @@ const radixSort = (nums: number[]): number[] => {
   }
   return arr.join('');
 };`
-},
-{
-  id: "single-number-xor",
-  title: "Одинокое число (XOR)",
-  description: "Находит элемент, который встречается в массиве только один раз, в то время как остальные — дважды. Алгоритм использует побитовую операцию XOR, которая 'аннулирует' парные числа, оставляя уникальное значение.",
-  complexity: { time: "O(n)", space: "O(1)" },
-  jsCode: `const singleNumber = (nums) => {
+  },
+  {
+    id: "single-number-xor",
+    title: "Одинокое число (XOR)",
+    description: "Находит элемент, который встречается в массиве только один раз, в то время как остальные — дважды. Алгоритм использует побитовую операцию XOR, которая 'аннулирует' парные числа, оставляя уникальное значение.",
+    complexity: { time: "O(n)", space: "O(1)" },
+    jsCode: `const singleNumber = (nums) => {
   let result = 0;
   
   for (let num of nums) {
@@ -1029,7 +1029,7 @@ const radixSort = (nums: number[]): number[] => {
   
   return result;
 };`,
-  tsCode: `const singleNumber = (nums: number[]): number => {
+    tsCode: `const singleNumber = (nums: number[]): number => {
   let result: number = 0;
   
   for (const num of nums) {
@@ -1038,13 +1038,13 @@ const radixSort = (nums: number[]): number[] => {
   
   return result;
 };`
-},
-{
-  id: "debounce",
-  title: "Debounce (Антидребезг)",
-  description: "Ограничивает частоту вызова функции. Выполняет её только после того, как прошло определенное время с последнего вызова. Идеально для полей поиска (API-запросов) и обработки событий ввода.",
-  complexity: { time: "O(1)", space: "O(1)" },
-  jsCode: `const debounce = (func, delay) => {
+  },
+  {
+    id: "debounce",
+    title: "Debounce (Антидребезг)",
+    description: "Ограничивает частоту вызова функции. Выполняет её только после того, как прошло определенное время с последнего вызова. Идеально для полей поиска (API-запросов) и обработки событий ввода.",
+    complexity: { time: "O(1)", space: "O(1)" },
+    jsCode: `const debounce = (func, delay) => {
   let timeoutId;
 
   return (...args) => {
@@ -1052,7 +1052,7 @@ const radixSort = (nums: number[]): number[] => {
     timeoutId = setTimeout(() => func(...args), delay);
   };
 };`,
-  tsCode: `const debounce = <T extends (...args: any[]) => void>(
+    tsCode: `const debounce = <T extends (...args: any[]) => void>(
   func: T, 
   delay: number
 ): ((...args: Parameters<T>) => void) => {
@@ -1063,13 +1063,13 @@ const radixSort = (nums: number[]): number[] => {
     timeoutId = setTimeout(() => func(...args), delay);
   };
 };`
-},
-{
-  id: "throttle",
-  title: "Throttle (Дросселирование)",
-  description: "Ограничивает максимальную частоту вызовов функции. В отличие от Debounce, при постоянном потоке событий функция будет гарантированно выполняться раз в заданный промежуток времени. Идеально для оптимизации скролла (scroll) и отслеживания мыши (mousemove).",
-  complexity: { time: "O(1)", space: "O(1)" },
-  jsCode: `const throttle = (func, limit) => {
+  },
+  {
+    id: "throttle",
+    title: "Throttle (Дросселирование)",
+    description: "Ограничивает максимальную частоту вызовов функции. В отличие от Debounce, при постоянном потоке событий функция будет гарантированно выполняться раз в заданный промежуток времени. Идеально для оптимизации скролла (scroll) и отслеживания мыши (mousemove).",
+    complexity: { time: "O(1)", space: "O(1)" },
+    jsCode: `const throttle = (func, limit) => {
   let isThrottled = false;
 
   return (...args) => {
@@ -1083,7 +1083,7 @@ const radixSort = (nums: number[]): number[] => {
     }, limit);
   };
 };`,
-  tsCode: `const throttle = <T extends (...args: any[]) => void>(
+    tsCode: `const throttle = <T extends (...args: any[]) => void>(
   func: T, 
   limit: number
 ): ((...args: Parameters<T>) => void) => {
@@ -1100,13 +1100,13 @@ const radixSort = (nums: number[]): number[] => {
     }, limit);
   };
 };`
-},
-{
-  id: "array-flatten",
-  title: "Распрямление массива (Flatten)",
-  description: "Рекурсивно превращает многомерный массив в одномерный. Этот алгоритм позволяет работать со структурами данных любой вложенности, собирая все элементы в единый плоский список.",
-  complexity: { time: "O(n)", space: "O(n)" },
-  jsCode: `const flatten = (arr) => {
+  },
+  {
+    id: "array-flatten",
+    title: "Распрямление массива (Flatten)",
+    description: "Рекурсивно превращает многомерный массив в одномерный. Этот алгоритм позволяет работать со структурами данных любой вложенности, собирая все элементы в единый плоский список.",
+    complexity: { time: "O(n)", space: "O(n)" },
+    jsCode: `const flatten = (arr) => {
   let result = [];
 
   arr.forEach((item) => {
@@ -1121,7 +1121,7 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`,
-  tsCode: `const flatten = (arr: any[]): any[] => {
+    tsCode: `const flatten = (arr: any[]): any[] => {
   let result: any[] = [];
 
   arr.forEach((item) => {
@@ -1134,7 +1134,44 @@ const radixSort = (nums: number[]): number[] => {
 
   return result;
 };`
-}
+  },
+  {
+    id: "deep-clone",
+    title: "Глубокое клонирование (Deep Clone)",
+    description: "Создает полную копию объекта, включая все вложенные структуры. В отличие от поверхностного копирования, изменения в копии никак не затронут оригинал, так как все ссылки заменяются новыми объектами.",
+    complexity: { time: "O(n)", space: "O(n)" },
+    jsCode: `const deepClone = (obj) => {
+  // Базовый случай: если не объект или null, возвращаем как есть
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
 
+  // Создаем массив или объект в зависимости от типа оригинала
+  const copy = Array.isArray(obj) ? [] : {};
 
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // Рекурсивно клонируем каждое свойство
+      copy[key] = deepClone(obj[key]);
+    }
+  }
+
+  return copy;
+};`,
+    tsCode: `const deepClone = <T>(obj: T): T => {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+
+  const copy: any = Array.isArray(obj) ? [] : {};
+
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      copy[key] = deepClone((obj as any)[key]);
+    }
+  }
+
+  return copy as T;
+};`
+  }
 ];
