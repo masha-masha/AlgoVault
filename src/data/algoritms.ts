@@ -1173,5 +1173,89 @@ const radixSort = (nums: number[]): number[] => {
 
   return copy as T;
 };`
+  },
+  {
+
+    id: "polynomial-hash",
+    title: "Полиномиальный хеш (с префиксами)",
+    description: "Построение префиксных полиномиальных хешей для строки и O(1)-получение хеша подстроки. Использует BigInt для безопасности при больших строках.",
+    complexity: { time: "O(n) построение, O(1) получение", space: "O(n)" },
+    jsCode: `const buildPolynomialHash = (s, base = 257n, mod = 1000000007n) => {
+
+  const n = s.length;
+
+  const pref = new Array(n + 1).fill(0n);
+
+  const pow = new Array(n + 1).fill(0n);
+
+  pow[0] = 1n;
+
+  for (let i = 0; i < n; i++) {
+
+    const c = BigInt(s.charCodeAt(i));
+
+    pref[i + 1] = (pref[i] * base + c) % mod;
+
+    pow[i + 1] = (pow[i] * base) % mod;
+
   }
+
+  const getHash = (l, r) => { // [l, r) 0-based
+
+    if (l >= r) return 0n;
+
+    let res = pref[r] - (pref[l] * pow[r - l]) % mod;
+
+    res = (res % mod + mod) % mod;
+
+    return res;
+
+  };
+
+  return { getHash, pref, pow, base, mod };
+
+};
+
+// Пример:
+
+// const h = buildPolynomialHash("hello");
+
+// console.log(h.getHash(0,5).toString()); `,
+    tsCode: `const buildPolynomialHash = (s: string, base = 257n, mod = 1000000007n) => {
+
+  const n = s.length;
+
+  const pref: bigint[] = new Array(n + 1).fill(0n);
+
+  const pow: bigint[] = new Array(n + 1).fill(0n);
+
+  pow[0] = 1n;
+
+  for (let i = 0; i < n; i++) {
+
+    const c = BigInt(s.charCodeAt(i));
+
+    pref[i + 1] = (pref[i] * base + c) % mod;
+
+    pow[i + 1] = (pow[i] * base) % mod;
+
+  }
+
+  const getHash = (l: number, r: number): bigint => {
+
+    if (l >= r) return 0n;
+
+    let res = pref[r] - (pref[l] * pow[r - l]) % mod;
+
+    res = (res % mod + mod) % mod;
+
+    return res;
+
+  };
+
+  return { getHash, pref, pow, base, mod };
+
+};`
+
+  },
 ];
